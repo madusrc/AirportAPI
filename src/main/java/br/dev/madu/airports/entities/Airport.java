@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
  * @author sesidevb
  */
 
-  @Entity
+@Entity
 @Table(name = "airport")
 public class Airport {
  @Id
