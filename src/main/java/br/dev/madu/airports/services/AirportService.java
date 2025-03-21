@@ -4,6 +4,7 @@
  */
 package br.dev.madu.airports.services;
 
+import DTO.AirportMinDTO;
 import br.dev.madu.airports.entities.Airport;
 import br.dev.madu.airports.repositories.AirportRepository;
 import java.util.List;
@@ -26,12 +27,20 @@ public class AirportService {
     }
     /**
      * Retorna DTO Airports filtrado por cidade.
-     * @param city 
+     * @param city
      * @return 
      */
-    public List<Airport> findByCity(String city){
+     public List<Airport> findByCity(String city){
         List<Airport> result = airportRepository.findByCityIgnoreCase(city);
         return result;
     }
-}   
-     
+     public List<AirportMinDTO> findByCountry(String country){
+        List<Airport> resultAirport = airportRepository.findByCountryIgnoreCase(country);
+        
+        
+        List<AirportMinDTO> resultDTO = resultAirport.stream()
+                .map(x -> new AirportMinDTO(x)).toList();
+        
+        return resultDTO;
+     }
+}

@@ -1,5 +1,6 @@
 package br.dev.madu.airports.controllers;
 
+import DTO.AirportMinDTO;
 import br.dev.madu.airports.entities.Airport;
 import br.dev.madu.airports.services.AirportService;
 import java.util.List;
@@ -39,8 +40,21 @@ public class AirportController {
       * @return
       */
     @GetMapping("/city/{cityName}")
-    public ResponseEntity<List<Airport>> findCityIgnoreCase(@PathVariable String cityName){
+    public List<Airport> findCityIgnoreCase(@PathVariable String cityName){
         List<Airport> result = airportService.findByCity(cityName);
+        return result;
+    }
+    /**
+      * Endpoint /airports/country/{countryName}
+      * preparando para devolve código de status conforme
+      * padronização REST.
+      * @param countryName
+      * @return
+      */
+    
+    @GetMapping("/country/{countryName}")
+    public ResponseEntity<List<AirportMinDTO>> findCountryIgnoreCase(@PathVariable String countryName){
+        List<AirportMinDTO> result = airportService.findByCountry(countryName);
         
         if (result.isEmpty()){
             //Ops..lista vazia...
@@ -54,4 +68,7 @@ public class AirportController {
             
         }
     }
+    public AirportService getAirportService() {
+        return airportService;
+}
 }
