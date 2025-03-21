@@ -9,6 +9,7 @@ import br.dev.madu.airports.entities.Airport;
 import br.dev.madu.airports.repositories.AirportRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 /**
@@ -43,4 +44,9 @@ public class AirportService {
         
         return resultDTO;
      }
-}
+        public Airport findByIataCode(String iataCode){
+            Airport result = airportRepository.findByIataCode(iataCode);
+            return result;
+            
+        }
+     }
