@@ -4,7 +4,9 @@
  */
 package br.dev.madu.airports.services;
 
-import DTO.AirportMinDTO;
+import br.dev.madu.airports.DTO.AirportMinDTO;
+import br.dev.madu.airports.DTO.AirportNearMeDTO;
+import br.dev.madu.airports.DTO.AirportNearMeDTO.AirportNearMeProjection;
 import br.dev.madu.airports.entities.Airport;
 import br.dev.madu.airports.repositories.AirportRepository;
 import java.util.List;
@@ -48,5 +50,14 @@ public class AirportService {
             Airport result = airportRepository.findByIataCode(iataCode);
             return result;
             
+        }
+        
+        public List<AirportNearMeDTO> findNearMe(double latitude, double longitude){
+            List<AirportNearMeProjection> resultNearAirports = airportRepository.findNearMe(latitude, longitude);
+            
+            List<AirportNearMeDTO> resultDTO = resultNearAirports.stream()
+                    .map(x -> new AirportNearMeDTO(x)).toList();
+            
+            return resultDTO;
         }
      }
